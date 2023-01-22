@@ -15,7 +15,10 @@ SET(CURL_STATICLIB ON)
 Set(CURL_NO_CURL_CMAKE ON)
 set(OpenSSL_USE_STATIC_LIBS ON)
 ##########################################################
-
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install" CACHE PATH "..." FORCE)
+endif()
+set(EXECUTABLE_OUTPUT PATH ${CMAKE_BINARY_DIR})
 SET(CMAKE_LIBRARY_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 set(SQLite3_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/lib)
@@ -106,6 +109,6 @@ add_subdirectory(${tgbot-cpp_SOURCE_DIR} ${tgbot-cpp_BINARY_DIR} EXCLUDE_FROM_AL
 endif()
 ##########################################################
 add_executable(course_test TgBot/src/source.cpp)
-
+install(TARGETS ${PROJECT_NAME} DESTINATION CanteenBot)
 target_link_libraries(course_test PUBLIC TgBot ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES} ${SQLite3_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENSSL_CRYPTO_LIBRARY} ${CURL_LIBRARIES})
 
