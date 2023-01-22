@@ -116,7 +116,7 @@ int rc;
 std::string sql;
 int main() {
 
-	std::string token = "";
+	std::string token = "5499577758:AAEomE4kaYJlRSnu53F6c3kGCks2A5C8hYQ";
 	TgBot::Bot bot(token);
 
 	rc = sqlite3_open("test.db", &db);
