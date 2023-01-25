@@ -109,6 +109,12 @@ add_subdirectory(${tgbot-cpp_SOURCE_DIR} ${tgbot-cpp_BINARY_DIR} EXCLUDE_FROM_AL
 endif()
 ##########################################################
 add_executable(course_test TgBot/src/source.cpp)
-install(TARGETS ${PROJECT_NAME} DESTINATION CanteenBot)
+##########################################################
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+install(TARGETS course_test DESTINATION .)
+install(FILES TgBot/test.db DESTINATION .)
 target_link_libraries(course_test PUBLIC TgBot ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES} ${SQLite3_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENSSL_CRYPTO_LIBRARY} ${CURL_LIBRARIES})
 
