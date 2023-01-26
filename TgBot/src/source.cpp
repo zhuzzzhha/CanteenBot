@@ -1,4 +1,5 @@
 
+
 #include <csignal>
 #include <cstdio>
 #include <cstdlib>
@@ -334,22 +335,66 @@ int main() {
 				bot.getApi().sendMessage(query->message->chat->id, response, false, 0, adminkeyboardG, "Markdown");
 			}
 		});
-	bot.getEvents().onCallbackQuery([&bot, &adminkeyboardB, &adminkeyboardG, &admkeyboard_B, &admkeyboard_G, &typekeyboard, &types](CallbackQuery::Ptr query)
+	bot.getEvents().onCallbackQuery([&bot, &adminkeyboardB, &adminkeyboardG, &admkeyboard_B, &admkeyboard_G, &typekeyboard, &types, &row_adm_B, &row_adm_G](CallbackQuery::Ptr query)
 		{
 			//Обработка команды добавления текущих блюд
 
 			if (StringTools::startsWith(query->data, "Добавить блюдо_B")) {
 				std::string response = "Выбери блюдо:";
+				admkeyboard_B->inlineKeyboard.clear();
+				adm_keyboard_B.clear();
+				sql = "SELECT Название FROM 'CANTEENB' WHERE Наличие = 0;";
+				rc = sqlite3_exec(db, sql.c_str(), Bkeyboard_sql, 0, &zErrMsg);
+				row_adm_B.clear();
+				row_adm_B.push_back(0);
+				for (int i = 0; i < adm_keyboard_B.size(); i++)
+				{
+
+					InlineKeyboardButton::Ptr button_adm(new InlineKeyboardButton);
+
+					std::string s = adm_keyboard_B[i];
+					std::regex regex1("_");
+					std::vector<std::string> out(
+						std::sregex_token_iterator(s.begin(), s.end(), regex1, -1),
+						std::sregex_token_iterator()
+					);
+
+					button_adm->text = out[1];
+					button_adm->callbackData = adm_keyboard_B[i];
+					row_adm_B[0] = button_adm;
+					admkeyboard_B->inlineKeyboard.push_back(row_adm_B);
+				}
 				bot.getApi().sendMessage(query->message->chat->id, response, false, 0, admkeyboard_B, "Markdown");
 			}
 			if (StringTools::startsWith(query->data, "Добавить блюдо_G")) {
 				std::string response = "Выберите блюдо:";
+				sql = "SELECT Название FROM 'CANTEENG' WHERE Наличие = 0;";
+				rc = sqlite3_exec(db, sql.c_str(), Gkeyboard_sql, 0, &zErrMsg);
+				row_adm_G.clear();
+				row_adm_G.push_back(0);
+				for (int i = 0; i < adm_keyboard_G.size(); i++)
+				{
+
+					InlineKeyboardButton::Ptr button_adm(new InlineKeyboardButton);
+
+					std::string s = adm_keyboard_G[i];
+					std::regex regex1("_");
+					std::vector<std::string> out(
+						std::sregex_token_iterator(s.begin(), s.end(), regex1, -1),
+						std::sregex_token_iterator()
+					);
+
+					button_adm->text = out[1];
+					button_adm->callbackData = adm_keyboard_G[i];
+					row_adm_G[0] = button_adm;
+					admkeyboard_G->inlineKeyboard.push_back(row_adm_G);
+				}
 				bot.getApi().sendMessage(query->message->chat->id, response, false, 0, admkeyboard_G, "Markdown");
 			}
 		});
 	bot.getEvents().onCallbackQuery([&bot, &admkeyboard_B, &row_adm_B](CallbackQuery::Ptr query)
 		{
-			
+
 			if (query->data.size() > 0 && query->data[0] == 'b')
 			{
 				std::regex regex1("_");
