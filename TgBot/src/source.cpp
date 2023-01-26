@@ -54,7 +54,6 @@ int Bkeyboard_sql(void* NotUsed, int argc, char** argv, char** azColName) {
 	for (int i = 0; i < argc; i++) {
 		std::string s = "b_";
 		s += argv[i];
-		std::cout << s << ' ';
 		adm_keyboard_B.push_back(s);
 	}
 
@@ -324,14 +323,14 @@ int main() {
 				sql = "UPDATE 'CANTEENB' SET Наличие = '0';";
 				rc = sqlite3_open("test.db", &db);
 				rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
-				string response = "Меню очищено!";
+				std::string response = "Меню очищено!";
 				bot.getApi().sendMessage(query->message->chat->id, response, false, 0, adminkeyboardB, "Markdown");
 			}
 			if (StringTools::startsWith(query->data, "Очистить текущее меню_G")) {
 				sql = "UPDATE 'CANTEENG' SET Наличие = '0';";
 				rc = sqlite3_open("test.db", &db);
 				rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
-				string response = "Меню очищено!";
+				std::string response = "Меню очищено!";
 				bot.getApi().sendMessage(query->message->chat->id, response, false, 0, adminkeyboardG, "Markdown");
 			}
 		});
@@ -350,11 +349,11 @@ int main() {
 		});
 	bot.getEvents().onCallbackQuery([&bot, &admkeyboard_B, &row_adm_B](CallbackQuery::Ptr query)
 		{
-			cout << "obrabotka cur dish" << endl;
+			
 			if (query->data.size() > 0 && query->data[0] == 'b')
 			{
 				std::regex regex1("_");
-				string s = query->data;
+				std::string s = query->data;
 				std::vector<std::string> out(
 					std::sregex_token_iterator(s.begin(), s.end(), regex1, -1),
 					std::sregex_token_iterator()
@@ -363,7 +362,7 @@ int main() {
 				sql = sql + out[1] + "';";
 				rc = sqlite3_open("test.db", &db);
 				rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
-				string response = "Блюдо добавлено!";
+				std::string response = "Блюдо добавлено!";
 				bot.getApi().sendMessage(query->message->chat->id, response, "Markdown");
 				admkeyboard_B->inlineKeyboard.clear();
 				adm_keyboard_B.clear();
@@ -376,7 +375,7 @@ int main() {
 
 					InlineKeyboardButton::Ptr button_adm(new InlineKeyboardButton);
 
-					string s = adm_keyboard_B[i];
+					std::string s = adm_keyboard_B[i];
 					std::regex regex1("_");
 					std::vector<std::string> out(
 						std::sregex_token_iterator(s.begin(), s.end(), regex1, -1),
@@ -398,7 +397,7 @@ int main() {
 			if (query->data.size() > 0 && query->data[0] == 'g')
 			{
 				std::regex regex1("_");
-				string s = query->data;
+				std::string s = query->data;
 				std::vector<std::string> out(
 					std::sregex_token_iterator(s.begin(), s.end(), regex1, -1),
 					std::sregex_token_iterator()
@@ -407,7 +406,7 @@ int main() {
 				sql = sql + out[1] + "';";
 				rc = sqlite3_open("test.db", &db);
 				rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
-				string response = "Блюдо добавлено!";
+				std::string response = "Блюдо добавлено!";
 				bot.getApi().sendMessage(query->message->chat->id, response, "Markdown");
 				admkeyboard_G->inlineKeyboard.clear();
 				adm_keyboard_G.clear();
@@ -420,7 +419,7 @@ int main() {
 
 					InlineKeyboardButton::Ptr button_adm(new InlineKeyboardButton);
 
-					string s = adm_keyboard_G[i];
+					std::string s = adm_keyboard_G[i];
 					std::regex regex1("_");
 					std::vector<std::string> out(
 						std::sregex_token_iterator(s.begin(), s.end(), regex1, -1),
