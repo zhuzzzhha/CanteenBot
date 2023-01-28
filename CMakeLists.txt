@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 ##########################################################
 project(course_test)			
 
-#set(VCPKG_ROOT_DIR "C:/vcpkg")
+
 set(TGBot_INCLUDE_DIR ${VCPKG_INSTALLED_DIR}/x64-windows/include)
 set(TGBot_LIB ${VCPKG_INSTALLED_DIR}/x64-windows/lib/TgBot.lib)
 set(TGBot_ROOT_DIR ${VCPKG_INSTALLED_DIR}/x64-windows/lib)
