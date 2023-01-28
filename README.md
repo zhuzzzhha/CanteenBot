@@ -14,6 +14,34 @@
 Бот реализован с помощью библиотеки tgbot-cpp с использованием встраиваемой базы данных Sqlite
 
 # Установка проекта
-1) Для установки проекта запустите build.bat. Этот файл необходим для того, чтобы задать CMake пути к необходимым библиотекам. По умолчанию в нем прописана сборка для Visual Studio 16, при необходимости исправьте.
-2) Соберите проект помощью Cmake. Используйте  CMake версии не ниже 3.14
+Инструкция по сборке
+## Установка зависимостей
+Windows
+1.	Для установки необходим пакетный менеджер vcpkg. Для установки vcpkg перейдите в корневую папку и клонируйте репозиторий с помощью команды git clone https://github.com/microsoft/vcpkg в выбранную папку.
+2.	Далее выполните команду  .\vcpkg\bootstrap-vcpkg.bat
+3.	Чтобы использовать vcpkg с Visual Studio запустите команду .\vcpkg integrate install
+4.	Для установки библиотеки tgbot и ее зависимостей на Windows-x64 используйте следующую команду .\vcpkg install tgbot-cpp:x64-windows. Установка займет некоторое время.
+5.	Для установки tgbot и ее зависимостей на Windows -x86 используйте команду .\vcpkg install tgbot-cpp
+6.	Для установки библиотеки  sqlite3 на Windows-x64 используйте команду .\vcpkg install sqlite3:x64-windows
+7.	 Для установки библиотеки  sqlite3 на Windows-x86 используйте команду .\vcpkg install sqlite3
 
+
+## Linux
+1.	Для установки зависимостей используйте следующие команды
+sudo apt-get install g++ make binutils cmake libboost-system-dev libssl-dev zlib1g-dev libcurl4-openssl-dev libsqlite3-dev  
+2.	Для компиляции и установки используйте  
+git clone https://github.com/reo7sp/tgbot-cpp  
+cd tgbot-cpp  
+cmake .  
+make -j4  
+sudo make install  
+
+## MacOS  
+1.	Для установки зависимостей используйте следующие команды  
+	brew install gcc cmake boost openssl zlib curl sqlite3  
+       2.  Для компиляции и установки используйте  
+git clone https://github.com/reo7sp/tgbot-cpp  
+cd tgbot-cpp  
+cmake .  
+make -j4  
+sudo make install  
