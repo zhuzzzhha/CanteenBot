@@ -16,7 +16,7 @@
 # Установка проекта
 Инструкция по сборке
 ## Установка зависимостей
-Windows
+## Windows
 1.	Для установки необходим пакетный менеджер vcpkg. Для установки vcpkg перейдите в корневую папку и клонируйте репозиторий с помощью команды git clone https://github.com/microsoft/vcpkg в выбранную папку.
 2.	Далее выполните команду  .\vcpkg\bootstrap-vcpkg.bat
 3.	Чтобы использовать vcpkg с Visual Studio запустите команду .\vcpkg integrate install
